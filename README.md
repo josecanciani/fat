@@ -1,6 +1,6 @@
 # FAT – File Analyzer & Tagger
 
-FAT is a PHP project that classifies files using LLPhant (with for example, an Ollama backend). It supports both image and text files and returns one or more semantic labels for each file.
+FAT is a PHP project that uses AI (via LLPhant, with for example an Ollama backend) to extract the **semantic meaning** of files. It supports both image and text files and returns one or more **semantic labels** for each file from a predefined label set.
 
 It contains a CLI tool and the services that can be used in your own PHP code.
 
@@ -225,6 +225,8 @@ If Ollama is not reachable, the integration tests will be marked as **skipped** 
 ## How classification works
 
 ### Labels
+
+FAT does not try to guess arbitrary free‑form tags. Instead, it checks whether a file matches any **predefined semantic labels** you give it.
 
 Labels are defined in JSON files under `resources/labels/`:
 
