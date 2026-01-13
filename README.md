@@ -2,6 +2,8 @@
 
 FAT is a PHP project that uses AI (via LLPhant, with for example an Ollama backend) to extract the **semantic meaning** of files. It supports both image and text files and returns one or more **semantic labels** for each file from a predefined label set.
 
+At a high level, you give FAT a file and a list of allowed labels; it asks an LLM which of those labels best describe the file’s meaning and then returns the labels that match.
+
 It contains a CLI tool and the services that can be used in your own PHP code.
 
 ## Quick start
