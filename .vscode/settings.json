@@ -1,0 +1,34 @@
+{
+    "editor.tabSize": 4,
+    "intelephense.environment.phpVersion": "8.1.0",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/.DS_Store": true,
+        "**/.git": true,
+        "**/.hg": true,
+        "**/.svn": true,
+        "**/CVS": true
+    },
+    "files.watcherExclude": {
+        "**.pyc": true,
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/**": true
+    },
+    "files.showIgnoredFiles": true,
+    "intelephense.compatibility.preferPsalmPhpstanPrefixedAnnotations": true,
+    "intelephense.rename.namespaceMode": "all",
+    "intelephense.maxMemory": 4096,
+    "intelephense.files.exclude": [
+        "**/.git/**",
+        "**/.svn/**",
+        "**/.hg/**",
+        "**/CVS/**",
+        "**/.DS_Store/**",
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/vendor/**/{Test,test,Tests,tests}/**"
+    ]
+}
