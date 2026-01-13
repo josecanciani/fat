@@ -11,13 +11,27 @@ It contains a CLI tool and the services that can be used in your own PHP code.
 From the project root, after installing dependencies:
 
 ```bash
-php bin/fatOllama.php path/to/file
+$ php bin/fatOllama.php --help
+Description:
+  Classify a file using the Ollama backend
+
+Usage:
+  fat:classify:ollama [options] [--] <file>
+
+Arguments:
+  file                               Path to the file to classify
+
+Options:
+      --vision-model[=VISION-MODEL]  Vision model name [default: "llama3.2-vision"]
+      --text-model[=TEXT-MODEL]      Text model name [default: "llama3.2"]
+      --image-labels[=IMAGE-LABELS]  Path to custom image labels JSON file
+      --text-labels[=TEXT-LABELS]    Path to custom text labels JSON file
 ```
 
 Example:
-
 ```bash
-php bin/fatOllama.php resources/testFiles/1.randomName.jpg
+$ php bin/fatOllama.php resources/testFiles/1.randomName.jpg
+Classification Result: National ID
 ```
 
 ### Use the services in your own PHP code
@@ -25,37 +39,35 @@ php bin/fatOllama.php resources/testFiles/1.randomName.jpg
 You can also use the underlying services directly in your own code by wiring an LLPhant chat implementation:
 
 ```php
+
 use Josecanciani\Fat\Image\ImageService;
 use Josecanciani\Fat\Label\LabelManager;
 use Josecanciani\Fat\Text\TextService;
 use LLPhant\Chat\OllamaChat;
 use LLPhant\OllamaConfig;
 
-require __DIR__ . '/vendor/autoload.php';
+$labelManager = new LabelManager([
+    'image' => __DIR__ . '/my-labels/image.json'
+]);
 
-$labelManager = new LabelManager();
-
-// Vision model for images
 $visionConfig = new OllamaConfig();
 $visionConfig->model = 'llama3.2-vision';
 $visionChat = new OllamaChat($visionConfig);
 $imageService = new ImageService($visionChat, $labelManager);
 
-// Text model for text/code files
-$textConfig = new OllamaConfig();
-$textConfig->model = 'llama3.2';
-$textChat = new OllamaChat($textConfig);
-$textService = new TextService($textChat, $labelManager);
-
 $imageResult = $imageService->classify('resources/testFiles/1.randomName.jpg');
 // Example:
 // $imageResult->getLabels(); // ['National ID']
 // $imageResult->getRaw();    // "National ID\nPortrait Photo" (full model output before filtering)
+```
 
-$textResult  = $textService->classify('some/code/file.php');
-// Example:
-// $textResult->getLabels(); // ['Source Code', 'PHP Source Code']
-// $textResult->getRaw();    // "Source Code\nPHP Source Code" (full model output before filtering)
+For text files, use the TextService instead:
+
+```php
+$textConfig = new OllamaConfig();
+$textConfig->model = 'llama3.2';
+$textChat = new OllamaChat($textConfig);
+$textService = new TextService($textChat, $labelManager);
 ```
 
 ## Requirements
